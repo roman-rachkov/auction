@@ -1,6 +1,6 @@
 FROM php:8.1-cli-alpine AS builder
 
-RUN apk add unzip
+RUN apk update && apk add unzip
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -10,8 +10,8 @@ WORKDIR /app
 
 COPY ./composer.json ./composer.lock ./
 
-RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --no-scripts --optimize-autoloader \
-    && rm -rf /root/.composer/cache \
+RUN composer install --no-dev --prefer-dist --no-progress --no-scripts --optimize-autoloader \
+    && rm -rf /root/.composer/cache
 
 ###################
 

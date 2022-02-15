@@ -18,10 +18,10 @@ docker-pull:
 docker-build:
 	docker-compose build --pull
 
-api-init: api-composer-install
+api-init: api-compose-install
 
-api-composer-install:
-	docker-composer run --rm api-php-cli composer install
+api-compose-install:
+	docker-compose run --rm api-php-cli composer install
 
 build: build-gateway build-frontend build-api
 
@@ -40,6 +40,8 @@ try-build:
 
 push: push-gateway push-frontend push-api
 
+full-deploy: build push deploy
+
 push-gateway:
 	docker push ${REGISTRY}/auction-gateway:${IMAGE_TAG}
 
@@ -49,8 +51,9 @@ push-frontend:
 push-api:
 	docker push ${REGISTRY}/auction-api:${IMAGE_TAG}
 	docker push ${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG}
+	docker push ${REGISTRY}/auction-api-php-cli:${IMAGE_TAG}
 
-deploy: build push
+deploy:
 	ssh ${HOST} -p ${PORT} 'rm -rf site_${BUILD_NUMBER}'
 	ssh ${HOST} -p ${PORT} 'mkdir site_${BUILD_NUMBER}'
 	scp -P ${PORT} docker-compose-production.yml ${HOST}:site_${BUILD_NUMBER}/docker-compose.yml
