@@ -15,16 +15,14 @@ RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --no-scri
 
 ###################
 
-FROM php:8.1-fpm-alpine
-
-RUN docker-php-ext-install opcache
+FROM php:8.1-cli-alpine
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
 COPY ./docker/common/php/conf.d /usr/local/etc/php/conf.d
-COPY ./docker/production/php/conf.d /usr/local/etc/php/conf.d
 
 WORKDIR /app
 
-COPY --from=builder ./app ./
+COPY --from=builder /app ./
+
 COPY ./ ./

@@ -1,4 +1,4 @@
-init: docker-down-clear docker-pull docker-build up
+init: docker-down-clear docker-pull docker-build up api-init
 up: docker-up
 down: docker-down
 restart: down up
@@ -18,6 +18,11 @@ docker-pull:
 docker-build:
 	docker-compose build --pull
 
+api-init: api-composer-install
+
+api-composer-install:
+	docker-composer run --rm api-php-cli composer install
+
 build: build-gateway build-frontend build-api
 
 build-gateway:
@@ -27,6 +32,7 @@ build-frontend:
 
 build-api:
 	docker --log-level=debug build --pull --file=backend/docker/production/php-fpm/Dockerfile --tag=${REGISTRY}/auction-api-php-fpm:${IMAGE_TAG} backend
+	docker --log-level=debug build --pull --file=backend/docker/production/php-cli/Dockerfile --tag=${REGISTRY}/auction-api-php-cli:${IMAGE_TAG} backend
 	docker --log-level=debug build --pull --file=backend/docker/production/nginx/Dockerfile --tag=${REGISTRY}/auction-api:${IMAGE_TAG} backend
 
 try-build:
