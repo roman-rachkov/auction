@@ -37,6 +37,7 @@ services:
     environment:
       DEBUG: 1
       APP_ENV: dev
+      PHP_IDE_CONFIG: serverName=API
   api-php-cli:
     build:
       context: backend/docker
