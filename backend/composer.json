@@ -27,9 +27,11 @@
     "symfony/console": "^6.0"
   },
   "require-dev": {
+    "overtrue/phplint": "^4.0",
     "roave/security-advisories": "dev-master"
   },
   "scripts": {
+    "lint": "phplint",
     "app": "php bin/app.php --ansi"
   }
 }

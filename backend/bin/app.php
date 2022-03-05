@@ -6,7 +6,6 @@ declare(strict_types=1);
 require __DIR__ . '/../vendor/autoload.php';
 
 $container = require __DIR__ . '/../config/container.php';
-
 $cli = new \Symfony\Component\Console\Application('Console');
 
 $commands = $container->get('config')['console']['commands'];
