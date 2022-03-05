@@ -6,5 +6,9 @@ use Slim\App;
 use Psr\Container\ContainerInterface;
 
 return static function (App $app, ContainerInterface $container) {
-    $app->addErrorMiddleware($container->get('config')['debug'], true, true);
+    /**
+     * @psalm-var array{debug:bool}
+     */
+    $config = $container->get('config');
+    $app->addErrorMiddleware($config['debug'], true, true);
 };
