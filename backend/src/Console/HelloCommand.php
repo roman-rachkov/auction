@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class HelloCommand extends Command
 {
-
     protected function configure(): void
     {
         $this
@@ -24,5 +23,4 @@ class HelloCommand extends Command
 
         return 0;
     }
-
 }

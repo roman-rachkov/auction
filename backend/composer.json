@@ -28,10 +28,13 @@
   },
   "require-dev": {
     "overtrue/phplint": "^4.0",
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "squizlabs/php_codesniffer": "3.*"
   },
   "scripts": {
     "lint": "phplint",
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
     "app": "php bin/app.php --ansi"
   }
 }
